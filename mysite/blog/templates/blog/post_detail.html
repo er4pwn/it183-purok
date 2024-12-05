@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="card mt-4">
+    <div class="card-header bg-secondary text-white">
+        <h2>{{ post.title }}</h2>
+    </div>
+    <div class="card-body">
+        <p>{{ post.content }}</p>
+        <hr>
+        <p class="text-muted small">Published on {{ post.created_at|date:"M d, Y" }}</p>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'post_edit' post.pk %}" class="btn btn-warning">Edit</a>
+        <form action="{% url 'post_delete' post.pk %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+        target="_blank" class="btn btn-primary">
+         Share on Facebook
+     </a>
+    </div>
+</div>
+
+
+<a href="{% url 'post_list' %}" class="btn btn-secondary mt-3">Back to All Posts</a>
+{% endblock %}
+

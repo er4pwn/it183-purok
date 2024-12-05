@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}All Blog Posts{% endblock %}
+
+{% block content %}
+<div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+        <h2>All Anonymous Post</h2>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            {% for post in posts %}
+            <li class="list-group-item">
+                <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                <span class="text-muted small float-end">{{ post.created_at|date:"M d, Y" }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<a href="{% url 'post_create' %}" class="btn btn-success mt-3">Create New Post</a>
+{% endblock %}
